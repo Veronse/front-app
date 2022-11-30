@@ -11,16 +11,16 @@
         </div>
         <div class="text-fields">
           <div class="email">
-            <TextInput placeholder="E-mail" />
+            <TextInput placeholder="E-mail" v-model="form.email" />
           </div>
           <div class="password">
             <p>Забыли пароль?</p>
-            <TextInput placeholder="Пароль" type="password" />
+            <TextInput placeholder="Пароль" type="password" v-model="form.password" />
           </div>
         </div>
         <div class="buttons">
           <div class="login-button">
-            <button>Войти</button>
+            <button @click.prevent="sendAuth">Войти</button>
           </div>
         </div>
       </div>
@@ -37,6 +37,34 @@ export default {
   name: "LoginPage",
   components: {
     TextInput
+  },
+  data() {
+    return {
+      form: {
+        email: '',
+        password: '',
+      }
+    }
+  },
+  methods: {
+    sendAuth: async function () {
+
+      let options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          'Access-Control-Allow-Origin': "*"
+        },
+        body: JSON.stringify(this.form)
+      }
+      let login = await fetch("http://localhost:5207/api/Auth/login", options);
+      let response = await login.json();
+      console.log(response);
+      localStorage.setItem('access_token', response.token)
+      
+      this.$router.push({name: "home"})
+      return response;
+    }
   }
 };
 
@@ -90,12 +118,12 @@ export default {
       .text-fields {
         margin-top: 60px;
 
-        .password{
+        .password {
           margin-top: 30px;
           display: flex;
           flex-direction: column;
 
-          p{
+          p {
             cursor: pointer;
             font-family: 'Roboto';
             color: rgba(0, 0, 0, 0.5);
@@ -107,24 +135,24 @@ export default {
         }
       }
 
-      .login-button{
+      .login-button {
         margin-top: 30px;
         display: flex;
 
         button {
-            color: white;
-            font-family: 'Montserrat Alternates';
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            background-color: #F7A845;
-            border-radius: 10px;
-            border: none;
-            height: 44px;
-            width: 128px;
-            transition: 0.3s all ease-out;
+          color: white;
+          font-family: 'Montserrat Alternates';
+          font-size: 18px;
+          font-weight: 700;
+          cursor: pointer;
+          background-color: #F7A845;
+          border-radius: 10px;
+          border: none;
+          height: 44px;
+          width: 128px;
+          transition: 0.3s all ease-out;
 
-          &:hover{
+          &:hover {
             background-color: #fc7f08;
           }
         }

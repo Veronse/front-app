@@ -8,7 +8,8 @@
         <button @click="$router.push('login')">Войти</button>
       </div>
       <div class="profile-preview" v-if="authenticated">
-
+        <div class="user-name">{{ user }}</div>
+        <div class="user-image">img</div>
       </div>
     </div>
   </div>
@@ -18,17 +19,20 @@
 
 export default {
   name: "Header",
-  data: function() {
+  data() {
     return {
-      authenticated: false
+      authenticated: localStorage.getItem('access_token') ? true : false,
+      user: fetch("http://localhost:5207/api/Auth/getme"),
     };
+  },
+  mounted() {
+    console.log(fetch("http://localhost:5207/api/Auth/getme"))
   }
 };
 
 </script>
 
 <style lang="scss">
-
 .header-wrapper {
   height: 130px;
   width: auto;
@@ -73,6 +77,24 @@ export default {
       }
     }
   }
-}
 
+  .profile-preview {
+    font-family: 'Montserrat Alternates';
+    font-size: 18px;
+    font-weight: 700;
+    width: 360px;
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    align-content: center;
+    background: #F8F8F8;
+    box-shadow: 0px 5px 24px 5px rgba(0, 0, 0, 0.12);
+    border-radius: 20px;
+    
+    .user-name {
+      
+    }
+  }
+}
 </style>

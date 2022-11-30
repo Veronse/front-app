@@ -19,7 +19,7 @@
 
         <div class="continue">
 
-          <a href="#second-block"><button>Вперед!</button></a>
+          <a v-if="!authenticated" href="/application"><button>Вперед!</button></a>
 
         </div>
       </div>
@@ -39,6 +39,11 @@ export default {
   name: "MainPage",
   components: {
     Header
+  },
+  data() {
+    return {
+      authenticated: false
+    }
   }
 };
 </script>

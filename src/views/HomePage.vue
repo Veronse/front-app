@@ -26,18 +26,67 @@
     </div>
 
     <div class="second-block" id="second-block">
+      <div class="select-blocks">
+        <div class="block-item">
+          <h2>Аналитический<br> центр</h2>
+          <a href=""><img src="../assets/arrow.svg" alt=""></a>
+        </div>
 
+        <div class="block-item">
+          <h2>Pentest</h2>
+          <a href=""><img src="../assets/arrow.svg" alt=""></a>
+        </div>
+
+        <div class="block-item">
+          <h2>SOC</h2>
+          <a href=""><img src="../assets/arrow.svg" alt=""></a>
+        </div>
+
+        <div class="block-item">
+          <h2>Сетевое <br>направление</h2>
+          <a href=""><img src="../assets/arrow.svg" alt=""></a>
+        </div>
+
+        <div class="block-item">
+          <h2>Проектирование<br> комплексной<br> защиты<br> инфосистем</h2>
+          <a href=""><img src="../assets/arrow.svg" alt=""></a>
+        </div>
+
+        <div class="block-item">
+          <h2>Установка и<br> администрирование<br> средств защиты<br> информации</h2>
+          <a href=""><img src="../assets/arrow.svg" alt=""></a>
+        </div>
+
+        <div class="block-item">
+          <h2>Интеграция <br>технических<br> средств защиты<br> периметра</h2>
+          <a href=""><img src="../assets/arrow.svg" alt=""></a>
+        </div>
+
+        <div class="block-item">
+          <h2>Финансово-<br>договорной отчет</h2>
+          <a href=""><img src="../assets/arrow.svg" alt=""></a>
+        </div>
+
+        <div class="block-item">
+          <h2>Технический<br> департамент,<br> направление систем<br> безопасности</h2>
+          <a href=""><img src="../assets/arrow.svg" alt=""></a>
+        </div>
+      </div>
     </div>
+
+    <Footer/>
 
   </div>
 </template>
 
 <script>
 import Header from "@/components/Header";
+import Footer from "@/components/Footer.vue";
 
 export default {
   name: "MainPage",
   components: {
+    Footer,
     Header
   }
 };
@@ -116,6 +165,52 @@ export default {
     width: 100%;
     height: 800px;
     background: white;
+
+    .select-blocks{
+      display: flex;
+      width: 80%;
+      margin: 0px auto 0 auto;
+      padding-top: 70px;
+      grid-gap: 50px;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      .block-item{
+        position: relative;
+        display: flex;
+        width: 360px;
+        height: 220px;
+        background: #F5F5F5;
+        box-shadow: 8px 7px 10px rgba(0, 0, 0, 0.06);
+        border-radius: 32px;
+        img{
+          opacity: 0;
+          transition: all 0.2s ease-out;
+          position: absolute;
+          width: 50%;
+          bottom: 0;
+          right: 0;
+        }
+
+        &:hover img{
+          position: absolute;
+          opacity: 1;
+          width: 50%;
+          bottom: 0;
+          right: 0;
+        }
+
+        h2{
+          margin: 35px 0 0 35px;
+          width: 100%;
+          font-family: 'Montserrat Alternates';
+          font-style: normal;
+          font-weight: 700;
+          font-size: 20px;
+          text-align: left;
+        }
+      }
+    }
   }
 }
 

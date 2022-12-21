@@ -11,16 +11,16 @@
         </div>
         <div class="text-fields">
           <div class="email">
-            <TextInput placeholder="E-mail" />
+            <TextInput v-model="email" placeholder="E-mail" />
           </div>
           <div class="password">
             <p>Забыли пароль?</p>
-            <TextInput placeholder="Пароль" type="password" />
+            <TextInput v-model="password" placeholder="Пароль" type="password" />
           </div>
         </div>
         <div class="buttons">
           <div class="login-button">
-            <button>Войти</button>
+            <button @click="login">Войти</button>
           </div>
         </div>
       </div>
@@ -37,6 +37,30 @@ export default {
   name: "LoginPage",
   components: {
     TextInput
+  },
+  data(){
+    return{
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    async login(){
+      let result = await fetch('http://localhost:5200/api/Auth/Login',
+        {
+        method: 'POST',
+        body: JSON.stringify({
+          email: this.email,
+          password: this.password,
+          ReturnUrl: 'http://asdasd.ru'
+        }),
+          headers: {
+          'Content-Type': 'application/json'
+          }
+      });
+
+      console.log(result);
+    }
   }
 };
 

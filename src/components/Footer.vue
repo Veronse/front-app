@@ -41,7 +41,7 @@
     height: 200px;
     border-radius: 32px 32px 0 0;
     background: #7B7979;
-    width: 60%;
+    width: 62%;
     margin: 50px auto 0 auto;
 
     hr{

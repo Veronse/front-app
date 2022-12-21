@@ -89,6 +89,9 @@ export default {
   },
   methods: {
     sendForm: async function (){
+      let names = this.application.firstName.split(' ')
+      this.application.firstName = names[0]
+      this.application.lastName = names[1]
 
       let options = {
         method: "POST",
@@ -100,6 +103,8 @@ export default {
       }
       let register = await fetch("http://localhost:5207/api/Auth/register", options);
       let response = await register.json();
+
+      this.$router.push({ name: "login" })          
       return response;
     }
   },

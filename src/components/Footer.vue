@@ -20,7 +20,7 @@
       </div>
 
       <div class="links">
-        <a href="#application">
+        <a href="/application">
           <button>Отправить резюме</button>
         </a>
       </div>

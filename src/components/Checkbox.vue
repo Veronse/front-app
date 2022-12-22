@@ -42,6 +42,7 @@ export default {
   methods: {
     onChange() {
       this.$emit('input', this.checked);
+      this.$emit('update:modelValue', this.checked);
     }
   }
 };

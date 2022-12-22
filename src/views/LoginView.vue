@@ -52,7 +52,7 @@ export default {
         body: JSON.stringify({
           email: this.email,
           password: this.password,
-          ReturnUrl: 'http://asdasd.ru'
+          ReturnUrl: 'http://localhost:8080'
         }),
           headers: {
           'Content-Type': 'application/json'

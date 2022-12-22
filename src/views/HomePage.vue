@@ -27,48 +27,23 @@
 
     <div class="second-block" id="second-block">
       <div class="select-blocks">
-        <div class="block-item">
-          <h2>Аналитический<br> центр</h2>
-          <a href=""><img src="../assets/arrow.svg" alt=""></a>
-        </div>
-
-        <div class="block-item">
-          <h2>Pentest</h2>
-          <a href=""><img src="../assets/arrow.svg" alt=""></a>
-        </div>
-
-        <div class="block-item">
-          <h2>SOC</h2>
-          <a href=""><img src="../assets/arrow.svg" alt=""></a>
-        </div>
-
-        <div class="block-item">
-          <h2>Сетевое <br>направление</h2>
-          <a href=""><img src="../assets/arrow.svg" alt=""></a>
-        </div>
-
-        <div class="block-item">
-          <h2>Проектирование<br> комплексной<br> защиты<br> инфосистем</h2>
-          <a href=""><img src="../assets/arrow.svg" alt=""></a>
-        </div>
-
-        <div class="block-item">
-          <h2>Установка и<br> администрирование<br> средств защиты<br> информации</h2>
-          <a href=""><img src="../assets/arrow.svg" alt=""></a>
-        </div>
-
-        <div class="block-item">
-          <h2>Интеграция <br>технических<br> средств защиты<br> периметра</h2>
-          <a href=""><img src="../assets/arrow.svg" alt=""></a>
-        </div>
-
-        <div class="block-item">
-          <h2>Финансово-<br>договорной отчет</h2>
+        <div class="block-item" v-for="card of cards">
+          <h2>{{ card.title }}</h2>
           <a href=""><img src="../assets/arrow.svg" alt=""></a>
         </div>
 
         <div class="block-item">
           <h2>Технический<br> департамент,<br> направление систем<br> безопасности</h2>
+          <a href=""><img src="../assets/arrow.svg" alt=""></a>
+        </div>
+
+        <div class="block-item">
+          <h2>Технический<br> департамент2,<br> направление систем<br> безопасности</h2>
+          <a href=""><img src="../assets/arrow.svg" alt=""></a>
+        </div>
+
+        <div class="block-item">
+          <h2>Технический<br> департамент3,<br> направление систем<br> безопасности</h2>
           <a href=""><img src="../assets/arrow.svg" alt=""></a>
         </div>
       </div>
@@ -91,7 +66,19 @@ export default {
   },
   data() {
     return {
-      authenticated: false
+      authenticated: false,
+      cards: []
+    }
+  },
+  async mounted() {
+    let cards = await fetch('http://localhost:5261/api/Faculty');
+
+    let cardsObjects = await cards.json();
+
+    console.log(cardsObjects);
+
+    if(cardsObjects.length) {
+      this.cards = cardsObjects;
     }
   }
 };
@@ -168,8 +155,9 @@ export default {
   .second-block {
     position: relative;
     width: 100%;
-    height: 800px;
+    height: auto;
     background: white;
+    min-height: 400px;
 
     .select-blocks{
       display: flex;

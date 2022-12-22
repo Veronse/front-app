@@ -35,11 +35,11 @@
             <TextInput placeholder="Курс" v-model="application.universityCourseNumber"/>
           </div>
           <p>В &nbsp;
-            <Dropdown :options="['УЦСБ', 'АБВГ']" /> &nbsp; вы бы хотели пройти
+            <Dropdown v-model="application.select" :options="['УЦСБ', 'АБВГ']" /> &nbsp; вы бы хотели пройти
           </p>
           <div class="checkboxes">
-            <Checkbox option="Практику" />
-            <Checkbox option="Стажировку" />
+            <Checkbox v-model="application.practice" option="Практику" />
+            <Checkbox v-model="application.internship" option="Стажировку" />
           </div>
 
           <div class="text-input-wrapper">
@@ -84,14 +84,46 @@ export default {
         universitySpeciality: '',
         universityCourseNumber: 0,
         usscTargetDates: '',
+        select: '',
+        practice: false,
+        internship: false
       }
     }
   },
   methods: {
     sendForm: async function (){
-      let names = this.application.firstName.split(' ')
-      this.application.firstName = names[0]
-      this.application.lastName = names[1]
+      let id = 0;
+
+      if(this.application.practice === true){
+        id = 1;
+      }
+      if(this.application.internship === true){
+        id = 2;
+      }
+      if(this.application.internship === true && this.application.practice === true){
+        id = 3;
+      }
+
+
+      let registerObject = {
+        "email": this.application.email,
+        "firstName": this.application.firstName.split(' ')[0],
+        "lastName": this.application.firstName.split(' ')[1],
+        "phone": this.application.phone,
+        "universityName": this.application.universityName,
+        "universityFaculty": this.application.universityFaculty,
+        "universitySpeciality": this.application.universitySpeciality,
+        "universityCourseNumber": this.application.universityCourseNumber,
+        "usscTargets": [
+          {
+            "id": id,
+            "name": this.application.select
+          }
+        ],
+        "usscTargetDates": this.application.usscTargetDates,
+        "returnUrl": `http://asdasdasd.ru`
+      }
+
 
       let options = {
         method: "POST",
@@ -99,9 +131,9 @@ export default {
           "Content-Type":"application/json",
           'Access-Control-Allow-Origin': "*"
         },
-        body: JSON.stringify(this.application)
+        body: JSON.stringify(registerObject)
       }
-      let register = await fetch("http://localhost:5207/api/Auth/register", options);
+      let register = await fetch("http://localhost:5200/api/Auth/register", options);
       let response = await register.json();
 
       this.$router.push({ name: "login" })          

@@ -11,7 +11,7 @@ export default {
   name: 'TextInput',
   methods: {
     changed: function (event) {
-      this.$emit('update:modelValue', event.target.value)
+      this.$emit('update:modelValue', event.target.value);
     }
   },
   props: {
